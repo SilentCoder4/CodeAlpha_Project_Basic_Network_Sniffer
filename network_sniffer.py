@@ -30,14 +30,15 @@ def sniff_packets(iface):
 
 def prc_packets(packet):
 
+    # check if the packet has TCP layar
     if packet.haslayer(TCP):
         src_ip = packet[IP].src
         dst_ip = packet[IP].dst
         src_port = packet[TCP].sport
         dst_port = packet[TCP].dport
-
         print(f"{bu}[+] {src_ip} is using port {src_port} to connect {dst_ip} at port {dst_port} {rst}")
 
+    # check if the packet contains HTTP data
     if packet.haslayer(HTTPRequest):
         url = packet[HTTPRequest].Host.decode() + packet[HTTPRequest].Path.decode()
         method = packet[HTTPRequest].Method.decode()
@@ -45,6 +46,7 @@ def prc_packets(packet):
         print(f"[+] HTTP Data:")
         print(f"{y} {packet[HTTPRequest].show()}")
 
+    # check if the packet contains Raw data
         if packet.haslayer(Raw):
             print(f"{r} [+] Useful raw data: {packet.getlayer(Raw).load.decode()}{rst}")
             print('=' * 75)
