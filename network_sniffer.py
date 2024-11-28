@@ -24,7 +24,7 @@ rst = Fore.RESET    #RESET color
 
 def sniff_packets(iface):
     if iface:
-        sniff(filter = 'port 80', prn = prc_packets, iface = iface, store = False)      #adding a port 80 filter
+        sniff(prn = prc_packets, iface = iface, store = False)      #adding a port 80 filter 'filter = 'port 80'
     else:
         sniff(prn = prc_packets, store = False)
 
