@@ -1,5 +1,5 @@
 # ==================================================
-# I am going to use scapy packag to perform sniffing
+# I am going to use scapy package to perform sniffing
 # ==================================================
 
 # ===================headers========================
