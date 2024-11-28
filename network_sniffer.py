@@ -51,8 +51,6 @@ def prc_packets(packet):
             print(f"{r} [+] Useful raw data: {packet.getlayer(Raw).load.decode()}{rst}")
             print('=' * 75)
 
-# iface = sys.argv[1] network interface can be entered by arguments if 'iface' is commented.
+iface = sys.argv[1]
 
-# Replace 'VMware Network Adapter VMnet8' with the appropriate interface name for your environment
-sniff_packets('VMware Network Adapter VMnet8')
-#heare we can use any network interface I am doing on VM From windows. so, I use 'VMware Network Adapter VMnet8' name
+sniff_packets(iface)
