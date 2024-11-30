@@ -1,6 +1,4 @@
 # ==================================================
-# I am going to use scapy package to perform sniffing
-# ==================================================
 
 # ===================headers========================
 import sys
@@ -9,6 +7,8 @@ from scapy.layers.inet import IP
 from scapy.layers.http import HTTPRequest, TCP
 from colorama import init, Fore
 from tabulate import tabulate
+import socket
+import netifaces
 
 # =================color=declaration================
 
@@ -21,9 +21,24 @@ c = Fore.CYAN       #CYAN
 rst = Fore.RESET    #RESET color
 
 # ==================================================
-iface = "VMware Network Adapter VMnet8"
+def get_interfaces_and_ips():
+    # Retrieve available network interfaces and their IP addresses.
+    interfaces = netifaces.interfaces()
+    data = [["Interface", "IP Address"]]
+    for iface in interfaces:
+        addresses = netifaces.ifaddresses(iface)
+        ip_info = addresses.get(netifaces.AF_INET, [{"addr": "N/A"}])[0]
+        data.append([iface, ip_info["addr"]])
+    return data
+
+def display_interfaces_and_ips():
+    # Display interfaces and their IPs in a table.
+    data = get_interfaces_and_ips()
+    print(f"{g}Available Network Interfaces and IPs:{rst}")
+    print(tabulate(data, headers="firstrow", tablefmt="grid"))
 
 def sniff_packets(iface):
+    # sniffing packet
     try:
         print(f"{g}[*]Starting packet sniffing on {iface if iface else 'all interfaces'}...{rst}")
         sniff(prn = prc_packets, iface = iface, store = False)      #adding a port 80 filter 'filter = 'port 80'
@@ -33,6 +48,7 @@ def sniff_packets(iface):
         print(f"{r}[!] Error: {str(e)}{rst}")
 
 def prc_packets(packet):
+    # process captured packets
     try:
         # check if the packet has TCP layar
         if packet.haslayer(TCP):
@@ -58,7 +74,7 @@ def prc_packets(packet):
         print(f"{r}[!] Error processing packet: {str(e)}{rst}")
 
 def main():
-
+    display_interfaces_and_ips()
     iface = sys.argv[1] if len(sys.argv) > 1 else None
     sniff_packets(iface)
 
