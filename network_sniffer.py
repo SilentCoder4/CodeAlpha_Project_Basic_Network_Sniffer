@@ -70,7 +70,7 @@ def prc_packets(packet):
     except Exception as e:
         print(f"{r}[!] Error processing packet: {str(e)}{rst}")
 
-def main():
+def main(): #main function
 
     iface = sys.argv[1] if len(sys.argv) > 1 else None
     sniff_packets(iface)
