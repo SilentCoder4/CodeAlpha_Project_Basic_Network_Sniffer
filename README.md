@@ -9,8 +9,7 @@ Getting Amazing experience and learning form Real world projects
 ![HTTP_request_data](https://github.com/user-attachments/assets/035bc2fe-7825-4de1-a71e-7c364189e242)
 
 
-pratical working of Network sniffer
-
+## Pratical working of Network sniffer code (on pycharm windows)
 https://github.com/user-attachments/assets/ed91dc13-fc4b-4425-bd43-d806afd4729d
 
 
